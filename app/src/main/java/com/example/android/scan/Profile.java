@@ -41,12 +41,13 @@ public class Profile extends AppCompatActivity {
 
     private TextView mTextMessage;
     private TextView mTestView;
+    private TextView mName;
     private EditText mNameInput;
     private AutoCompleteTextView mHobbyInput;
     private int hobbyInt;
     private Button mAddButton;
 
-    private RecyclerView mHobbiesList;
+    private TextView mHobbiesList;
     private HobbiesAdapter mHobbiesListAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
 
@@ -72,6 +73,7 @@ public class Profile extends AppCompatActivity {
     };
 
     private void readProfile() throws IOException {
+        //mTestView.setText("readProfile");
         hobbies = new ArrayList<>();
         FileInputStream fstream = new FileInputStream(PROFILE_FILENAME);
         Scanner br = new Scanner(new InputStreamReader(fstream));
@@ -83,11 +85,18 @@ public class Profile extends AppCompatActivity {
             hobbies.add(line);
         }
         fstream.close();
+        updateHobbyListDisplay();
     }
 
     private void updateHobbyListDisplay() {
         mTestView.setText("updateHobbyListDisplay");
-        mHobbiesListAdapter.updateList(hobbies);
+        //mHobbiesListAdapter.updateList(hobbies);
+        StringBuilder phatString = new StringBuilder();
+        for (String h : hobbies) {
+            phatString.append(h);
+            phatString.append('\n');
+        }
+        mHobbiesList.setText(phatString.toString());
     }
 
     private boolean addToHobbyList(int i) {
@@ -101,7 +110,7 @@ public class Profile extends AppCompatActivity {
         }
         if (!hobbies.contains(possibleHobbies[i])) {
             hobbies.add(possibleHobbies[i]);
-            //updateHobbyListDisplay();
+            updateHobbyListDisplay();
 
             PrintWriter pw = new PrintWriter(fstream);
             pw.append(Integer.toString(i));
@@ -149,6 +158,7 @@ public class Profile extends AppCompatActivity {
 
     private void updateName(String newName) {
         name = newName;
+        mName.setText("Name: " + name);
         mTestView.setText("updateName");
         try {
             updateProfile();
@@ -208,6 +218,7 @@ public class Profile extends AppCompatActivity {
             }
         });
 
+        mName = (TextView) findViewById(R.id.tv_name);
         mNameInput = (EditText) findViewById(R.id.et_name);
         mNameSetButton = (Button) findViewById(R.id.button_set);
         mNameSetButton.setOnClickListener(new View.OnClickListener() {
@@ -217,13 +228,7 @@ public class Profile extends AppCompatActivity {
             }
         });
 
-        mHobbiesList = findViewById(R.id.rv_interests_list);
-
-        mLayoutManager = new LinearLayoutManager(this);
-        mHobbiesList.setLayoutManager(mLayoutManager);
-        mHobbiesListAdapter = new HobbiesAdapter(hobbies);
-        mHobbiesList.setAdapter(mHobbiesListAdapter);
-
+        mHobbiesList = (TextView) findViewById(R.id.tv_hobbies_list);
 
 
 
