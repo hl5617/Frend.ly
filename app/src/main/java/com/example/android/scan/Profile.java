@@ -18,6 +18,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -41,12 +42,13 @@ public class Profile extends AppCompatActivity {
 
     private TextView mTextMessage;
     private TextView mTestView;
+    private TextView mName;
     private EditText mNameInput;
     private AutoCompleteTextView mHobbyInput;
     private int hobbyInt;
     private Button mAddButton;
 
-    private RecyclerView mHobbiesList;
+    private TextView mHobbiesList;
     private HobbiesAdapter mHobbiesListAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
 
@@ -72,22 +74,43 @@ public class Profile extends AppCompatActivity {
     };
 
     private void readProfile() throws IOException {
+        //mTestView.setText("readProfile");
         hobbies = new ArrayList<>();
-        FileInputStream fstream = new FileInputStream(PROFILE_FILENAME);
-        Scanner br = new Scanner(new InputStreamReader(fstream));
-        if (br.hasNext()) {
-            name = br.nextLine();
+        FileInputStream is;
+        BufferedReader reader;
+        if (profile.exists()) {
+            is = new FileInputStream(profile);
+            reader = new BufferedReader(new InputStreamReader(is));
+            String line = reader.readLine();
+            if (line != null) {
+                name = line;
+                mName.setText("Name: " + name);
+            }
+            while(line != null){
+                line = reader.readLine();
+                if (line != null) {
+                    hobbies.add(line);
+                }
+            }
+        } else {
+            mTestView.setText("file does not exist");
         }
-        while (br.hasNext()) {
-            String line = br.nextLine();
-            hobbies.add(line);
-        }
-        fstream.close();
+        updateHobbyListDisplay();
     }
 
     private void updateHobbyListDisplay() {
+        if (hobbies.isEmpty()) {
+            mTestView.setText("updateHobby: empty list");
+            return;
+        }
         mTestView.setText("updateHobbyListDisplay");
-        mHobbiesListAdapter.updateList(hobbies);
+        StringBuilder phatString = new StringBuilder();
+        for (String h : hobbies) {
+            phatString.append(h);
+            phatString.append('\n');
+        }
+        // gets to at least here before crashing
+        mHobbiesList.setText(phatString.toString());
     }
 
     private boolean addToHobbyList(int i) {
@@ -101,7 +124,7 @@ public class Profile extends AppCompatActivity {
         }
         if (!hobbies.contains(possibleHobbies[i])) {
             hobbies.add(possibleHobbies[i]);
-            //updateHobbyListDisplay();
+            updateHobbyListDisplay();
 
             PrintWriter pw = new PrintWriter(fstream);
             pw.append(Integer.toString(i));
@@ -149,6 +172,7 @@ public class Profile extends AppCompatActivity {
 
     private void updateName(String newName) {
         name = newName;
+        mName.setText("Name: " + name);
         mTestView.setText("updateName");
         try {
             updateProfile();
@@ -165,17 +189,17 @@ public class Profile extends AppCompatActivity {
 
         mTestView = (TextView) findViewById(R.id.tvTest);
 
+        mHobbiesList = (TextView) findViewById(R.id.tv_hobbies_list);
+        mName = (TextView) findViewById(R.id.tv_name);
+
         profile = new File(context.getFilesDir(), PROFILE_FILENAME);
-        try {
-            if (!profile.createNewFile()) {
+
+        if (profile.exists()) {
+            try {
                 readProfile();
-                mTestView.setText("not createnewfile");
-            } else {
-                hobbies = new ArrayList<>();
-                mTestView.setText("createnewfile");
+            } catch (IOException e){
+                mTestView.setText("kdjfskjd");
             }
-        } catch (IOException e) {
-            Log.d("ERR","sholdnt");
         }
 
         possibleHobbies = (String[]) getResources().getStringArray(R.array.hobby_array);
@@ -208,6 +232,7 @@ public class Profile extends AppCompatActivity {
             }
         });
 
+
         mNameInput = (EditText) findViewById(R.id.et_name);
         mNameSetButton = (Button) findViewById(R.id.button_set);
         mNameSetButton.setOnClickListener(new View.OnClickListener() {
@@ -216,13 +241,6 @@ public class Profile extends AppCompatActivity {
                 updateName(mNameInput.getText().toString());
             }
         });
-
-        mHobbiesList = findViewById(R.id.rv_interests_list);
-
-        mLayoutManager = new LinearLayoutManager(this);
-        mHobbiesList.setLayoutManager(mLayoutManager);
-        mHobbiesListAdapter = new HobbiesAdapter(hobbies);
-        mHobbiesList.setAdapter(mHobbiesListAdapter);
 
 
 
