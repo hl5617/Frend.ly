@@ -91,7 +91,7 @@ public class Profile extends AppCompatActivity {
     }
 
     private boolean addToHobbyList(int i) {
-        mTestView.setText("addToHobbyList");
+        mTestView.setText("addToHobbyList, id: " + Integer.toString(i));
 
         FileOutputStream fstream;
         try {
@@ -101,7 +101,7 @@ public class Profile extends AppCompatActivity {
         }
         if (!hobbies.contains(possibleHobbies[i])) {
             hobbies.add(possibleHobbies[i]);
-            updateHobbyListDisplay();
+            //updateHobbyListDisplay();
 
             PrintWriter pw = new PrintWriter(fstream);
             pw.append(Integer.toString(i));
@@ -218,13 +218,13 @@ public class Profile extends AppCompatActivity {
         });
 
         mHobbiesList = findViewById(R.id.rv_interests_list);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        mHobbiesList.setLayoutManager(layoutManager);
 
         mLayoutManager = new LinearLayoutManager(this);
         mHobbiesList.setLayoutManager(mLayoutManager);
         mHobbiesListAdapter = new HobbiesAdapter(hobbies);
         mHobbiesList.setAdapter(mHobbiesListAdapter);
+
+
 
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
