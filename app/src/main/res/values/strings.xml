@@ -11,9 +11,340 @@
     <string name="search">Search</string>
     <string name="nearby">Nearby</string>
     <string-array name="hobby_array">
+        <item>3D printing</item>
+        <item>Acrobatics</item>
+        <item>Acting</item>
+        <item>Amateur radio</item>
+        <item>Animation</item>
+        <item>Aquascaping</item>
+        <item>Baking</item>
+        <item>Baton twirling</item>
+        <item>Beatboxing</item>
+        <item>Board/tabletop games</item>
+        <item>Book restoration</item>
+        <item>Cabaret</item>
+        <item>Calligraphy</item>
+        <item>Candle making</item>
+        <item>Coffee roasting</item>
+        <item>Collecting</item>
+        <item>Coloring</item>
+        <item>Computer programming</item>
+        <item>Cooking</item>
+        <item>Cosplaying</item>
+        <item>Couponing</item>
+        <item>Creative writing</item>
+        <item>Crocheting</item>
+        <item>Cross-stitch</item>
+        <item>Crossword puzzles</item>
+        <item>Cryptography</item>
+        <item>Dance</item>
+        <item>Digital arts</item>
+        <item>Do it yourself</item>
+        <item>Drama</item>
+        <item>Drawing</item>
+        <item>Electronics</item>
+        <item>Embroidery</item>
+        <item>Fantasy sports</item>
+        <item>Fashion</item>
+        <item>Fishkeeping</item>
+        <item>Flower arranging</item>
+        <item>Foreign language learning</item>
+        <item>Gaming (tabletop games and role-playing games)</item>
+        <item>Genealogy</item>
+        <item>Glassblowing</item>
+        <item>Graphic design</item>
+        <item>Gunsmithing</item>
+        <item>Herp keeping</item>
+        <item>Homebrewing</item>
+        <item>Hydroponics</item>
+        <item>Ice skating</item>
+        <item>Jewelry making</item>
+        <item>Jigsaw puzzles</item>
+        <item>Juggling</item>
+        <item>Knife making</item>
+        <item>Knitting</item>
+        <item>Kombucha brewing</item>
+        <item>Lace making</item>
+        <item>Lapidary</item>
+        <item>Leather crafting</item>
+        <item>Lego building</item>
+        <item>Lock Picking</item>
+        <item>Listening to music</item>
+        <item>Machining</item>
+        <item>Macrame</item>
+        <item>Magic</item>
+        <item>Metalworking</item>
+        <item>Model building</item>
+        <item>Model engineering</item>
+        <item>Needlepoint</item>
+        <item>Origami</item>
+        <item>Painting</item>
+        <item>Philately</item>
+        <item>Photography</item>
+        <item>Playing musical instruments</item>
+        <item>Poi</item>
+        <item>Pottery</item>
+        <item>Puzzles</item>
+        <item>Quilling</item>
+        <item>Quilting</item>
         <item>Reading</item>
+        <item>Robot combat</item>
+        <item>Scrapbooking</item>
+        <item>Sculpting</item>
+        <item>Sewing</item>
+        <item>Singing</item>
+        <item>Sketching</item>
+        <item>Soapmaking</item>
+        <item>Stand-up comedy</item>
+        <item>Table tennis</item>
+        <item>Taxidermy</item>
+        <item>Video game developing</item>
+        <item>Video gaming</item>
+        <item>Video editing</item>
+        <item>Watching movies</item>
+        <item>Watching television</item>
+        <item>Whittling</item>
+        <item>Wood carving</item>
+        <item>Woodworking</item>
+        <item>Worldbuilding</item>
+        <item>Writing</item>
+        <item>Yo-yoing</item>
+        <item>Yoga</item>
+        <item>Air sports</item>
+        <item>Archery</item>
+        <item>Astronomy</item>
+        <item>BASE jumping</item>
+        <item>Baseball</item>
+        <item>Basketball</item>
+        <item>Beekeeping</item>
+        <item>Bird watching</item>
+        <item>Blacksmithing</item>
+        <item>BMX</item>
+        <item>Board sports</item>
+        <item>Bodybuilding</item>
+        <item>Brazilian jiu-jitsu</item>
+        <item>Camping</item>
+        <item>Canoeing</item>
+        <item>Canyoning</item>
+        <item>Dowsing</item>
+        <item>Driving</item>
+        <item>Fishing</item>
+        <item>Flag football</item>
+        <item>Flying</item>
+        <item>Flying disc</item>
+        <item>Foraging</item>
+        <item>Freestyle football</item>
+        <item>Gardening</item>
+        <item>Geocaching</item>
+        <item>Ghost hunting</item>
+        <item>Gold prospecting</item>
+        <item>Graffiti</item>
+        <item>Handball</item>
+        <item>High-power rocketry</item>
+        <item>Hiking</item>
+        <item>Hooping</item>
+        <item>Horseback riding</item>
+        <item>Hunting</item>
+        <item>Inline skating</item>
+        <item>Jogging</item>
+        <item>Kayaking</item>
+        <item>Kite flying</item>
+        <item>Kitesurfing</item>
+        <item>LARPing</item>
+        <item>Letterboxing</item>
+        <item>Longboarding</item>
+        <item>Martial arts</item>
+        <item>Metal detecting</item>
+        <item>Motor sports</item>
+        <item>Mountain biking</item>
+        <item>Mountaineering</item>
+        <item>Mushroom hunting/mycology</item>
+        <item>Netball</item>
+        <item>Nordic skating</item>
+        <item>Orienteering</item>
+        <item>Paintball</item>
+        <item>Parkour</item>
+        <item>Photography</item>
+        <item>Polo</item>
+        <item>Powerlifting</item>
+        <item>Rafting</item>
+        <item>Rappelling</item>
+        <item>Road biking</item>
+        <item>Rock climbing</item>
+        <item>Roller skating</item>
+        <item>Rugby</item>
+        <item>Running</item>
+        <item>Sailing</item>
+        <item>Sand art</item>
+        <item>Scouting</item>
+        <item>Scuba diving</item>
+        <item>Sculling or rowing</item>
+        <item>Shooting</item>
+        <item>Shopping</item>
+        <item>Skateboarding</item>
+        <item>Skiing</item>
+        <item>Skimboarding</item>
+        <item>Skydiving</item>
+        <item>Slacklining</item>
+        <item>Snowboarding</item>
+        <item>Stone skipping</item>
+        <item>Sun bathing</item>
+        <item>Surfing</item>
         <item>Swimming</item>
-        <item>Jumping</item>
-        <item>Rock paper scissors</item>
+        <item>Taekwondo</item>
+        <item>Tai chi</item>
+        <item>Topiary</item>
+        <item>Travel</item>
+        <item>Urban exploration</item>
+        <item>Vacation</item>
+        <item>Vehicle restoration</item>
+        <item>Walking</item>
+        <item>Water sports</item>
+        <item>Action figure</item>
+        <item>Antiquing</item>
+        <item>Art collecting</item>
+        <item>Book collecting</item>
+        <item>Cartophily (card collecting)</item>
+        <item>Coin collecting</item>
+        <item>Comic book collecting</item>
+        <item>Deltiology (postcard collecting)</item>
+        <item>Die-cast toy</item>
+        <item>Dolls</item>
+        <item>Element collecting</item>
+        <item>Fusilately (phonecard collecting)</item>
+        <item>Knife collecting</item>
+        <item>Lotology (lottery ticket collecting)</item>
+        <item>Movie and movie memorabilia collecting</item>
+        <item>Perfume</item>
+        <item>Phillumeny</item>
+        <item>Rail transport modelling</item>
+        <item>Record collecting</item>
+        <item>Shoes</item>
+        <item>Stamp collecting</item>
+        <item>Tea bag collecting</item>
+        <item>Video game collecting</item>
+        <item>Vintage cars</item>
+        <item>Antiquities</item>
+        <item>Auto audiophilia</item>
+        <item>Flower collecting and pressing</item>
+        <item>Fossil hunting</item>
+        <item>Insect collecting</item>
+        <item>Magnet fishing</item>
+        <item>Metal detecting</item>
+        <item>Mineral collecting</item>
+        <item>Rock balancing</item>
+        <item>Sea glass collecting</item>
+        <item>Seashell collecting</item>
+        <item>Stone collecting</item>
+        <item>Animal fancy</item>
+        <item>Badminton</item>
+        <item>Baton twirling</item>
+        <item>Billiards</item>
+        <item>Bowling</item>
+        <item>Boxing</item>
+        <item>Bridge</item>
+        <item>Cheerleading</item>
+        <item>Chess</item>
+        <item>Color guard</item>
+        <item>Curling</item>
+        <item>Dancing</item>
+        <item>Darts</item>
+        <item>Debate</item>
+        <item>Eating</item>
+        <item>ESports</item>
+        <item>Fencing</item>
+        <item>Go</item>
+        <item>Gymnastics</item>
+        <item>Ice skating</item>
+        <item>Kabaddi</item>
+        <item>Laser tag</item>
+        <item>Longboarding</item>
+        <item>Mahjong</item>
+        <item>Marbles</item>
+        <item>Martial arts</item>
+        <item>Poker</item>
+        <item>Shogi</item>
+        <item>Slot car racing</item>
+        <item>Speedcubing</item>
+        <item>Sport stacking</item>
+        <item>Table football</item>
+        <item>Volleyball</item>
+        <item>Weightlifting</item>
+        <item>Wrestling</item>
+        <item>Airsoft</item>
+        <item>American football</item>
+        <item>Archery</item>
+        <item>Association football</item>
+        <item>Astrology</item>
+        <item>Australian rules football</item>
+        <item>Auto racing</item>
+        <item>Baseball</item>
+        <item>Beach volleyball</item>
+        <item>Breakdancing</item>
+        <item>Climbing</item>
+        <item>Cricket</item>
+        <item>Cycling</item>
+        <item>Disc golf</item>
+        <item>Dog sport</item>
+        <item>Equestrianism</item>
+        <item>Exhibition drill</item>
+        <item>Field hockey</item>
+        <item>Figure skating</item>
+        <item>Fishing</item>
+        <item>Footbag</item>
+        <item>Golfing</item>
+        <item>Handball</item>
+        <item>Horseback riding</item>
+        <item>Ice hockey</item>
+        <item>Judo</item>
+        <item>Jukskei</item>
+        <item>Kart racing</item>
+        <item>Knife throwing</item>
+        <item>Lacrosse</item>
+        <item>Longboarding</item>
+        <item>Marching band</item>
+        <item>Model aircraft</item>
+        <item>Racquetball</item>
+        <item>Radio-controlled car racing</item>
+        <item>Roller derby</item>
+        <item>Rugby league football</item>
+        <item>Sculling or rowing</item>
+        <item>Shooting sport</item>
+        <item>Skateboarding</item>
+        <item>Speed skating</item>
+        <item>Squash</item>
+        <item>Surfing</item>
+        <item>Swimming</item>
+        <item>Table tennis</item>
+        <item>Tennis</item>
+        <item>Tennis polo</item>
+        <item>Tether car</item>
+        <item>Tour skating</item>
+        <item>Triathlon</item>
+        <item>Ultimate frisbee</item>
+        <item>Volleyball</item>
+        <item>Water polo</item>
+        <item>Fishkeeping</item>
+        <item>Learning</item>
+        <item>Meditation</item>
+        <item>Microscopy</item>
+        <item>Reading</item>
+        <item>Shortwave listening</item>
+        <item>Audiophile</item>
+        <item>Videophilia</item>
+        <item>Aircraft spotting</item>
+        <item>Amateur astronomy</item>
+        <item>Birdwatching</item>
+        <item>Bus spotting</item>
+        <item>Geocaching</item>
+        <item>Gongoozling</item>
+        <item>Herping</item>
+        <item>Hiking/backpacking</item>
+        <item>Meteorology</item>
+        <item>Photography</item>
+        <item>Satellite watching</item>
+        <item>Trainspotting</item>
+        <item>Traveling</item>
+        <item>Whale watching</item>
     </string-array>
 </resources>
