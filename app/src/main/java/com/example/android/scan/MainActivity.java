@@ -7,8 +7,12 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
-import android.view.View;
+import android.widget.ExpandableListView;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -29,10 +33,44 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
+    private ExpandableListAdapter listAdapter;
+    private ExpandableListView expListView;
+    private List<String> listDataHeader;
+    private HashMap<String, List<String>> listDataChild;
+
+    private void prepareListData() {
+        listDataHeader = new ArrayList<String>();
+        listDataChild = new HashMap<String, List<String>>();
+
+        listDataHeader.add("steve");
+        listDataHeader.add("waldo");
+
+        List<String> steve = new ArrayList<String>();
+        steve.add("Tea bag collecting");
+        steve.add("Bird watching");
+        steve.add("Amateur yodelling");
+
+        List<String> waldo = new ArrayList<String>();
+        waldo.add("Gunsmithing");
+        waldo.add("Swimming");
+        waldo.add("Hunting");
+
+        listDataChild.put(listDataHeader.get(0), waldo); // Header, Child data
+        listDataChild.put(listDataHeader.get(1), steve);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_search);
+
+        expListView = (ExpandableListView) findViewById(R.id.lvExp);
+
+        prepareListData();
+
+        listAdapter = new ExpandableListAdapter(this, listDataHeader, listDataChild);
+
+        expListView.setAdapter(listAdapter);
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);

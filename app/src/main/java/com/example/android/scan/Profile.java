@@ -1,6 +1,7 @@
 package com.example.android.scan;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -64,6 +65,7 @@ public class Profile extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
+                    gotoHome();
                     return true;
                 case R.id.navigation_dashboard:
                     return true;
@@ -270,6 +272,14 @@ public class Profile extends AppCompatActivity {
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        navigation.setSelectedItemId(R.id.navigation_dashboard);
+    }
+
+    public void gotoHome() {
+        Context context = Profile.this;
+        Class destinationActivity = MainActivity.class;
+        Intent intent = new Intent(context, destinationActivity);
+        startActivity(intent);
     }
 
 }
