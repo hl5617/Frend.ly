@@ -47,6 +47,7 @@ public class Profile extends AppCompatActivity {
     private AutoCompleteTextView mHobbyInput;
     private int hobbyInt;
     private Button mAddButton;
+    private Button mClearButton;
 
     private TextView mHobbiesList;
     private HobbiesAdapter mHobbiesListAdapter;
@@ -85,11 +86,12 @@ public class Profile extends AppCompatActivity {
             if (line != null) {
                 name = line;
                 mName.setText("Name: " + name);
+                mNameInput.setText(name);
             }
             while(line != null){
                 line = reader.readLine();
                 if (line != null) {
-                    hobbies.add(line);
+                    hobbies.add(possibleHobbies[Integer.parseInt(line)]);
                 }
             }
         } else {
@@ -100,6 +102,7 @@ public class Profile extends AppCompatActivity {
 
     private void updateHobbyListDisplay() {
         if (hobbies.isEmpty()) {
+            mHobbiesList.setText("Hobbies");
             mTestView.setText("updateHobby: empty list");
             return;
         }
@@ -187,10 +190,13 @@ public class Profile extends AppCompatActivity {
         Context context = this.getApplicationContext();
         setContentView(R.layout.activity_profile);
 
+        possibleHobbies = (String[]) getResources().getStringArray(R.array.hobby_array);
+
         mTestView = (TextView) findViewById(R.id.tvTest);
 
         mHobbiesList = (TextView) findViewById(R.id.tv_hobbies_list);
         mName = (TextView) findViewById(R.id.tv_name);
+        mNameInput = (EditText) findViewById(R.id.et_name);
 
         profile = new File(context.getFilesDir(), PROFILE_FILENAME);
 
@@ -202,7 +208,7 @@ public class Profile extends AppCompatActivity {
             }
         }
 
-        possibleHobbies = (String[]) getResources().getStringArray(R.array.hobby_array);
+
 
         mHobbyInput = (AutoCompleteTextView) findViewById(R.id.at_interest_input);
         // TODO: only allow autocomplete hobby values
@@ -228,12 +234,11 @@ public class Profile extends AppCompatActivity {
         mAddButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mHobbyInput.setText("");
                 addToHobbyList(hobbyInt);
             }
         });
 
-
-        mNameInput = (EditText) findViewById(R.id.et_name);
         mNameSetButton = (Button) findViewById(R.id.button_set);
         mNameSetButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -242,7 +247,19 @@ public class Profile extends AppCompatActivity {
             }
         });
 
-
+        mClearButton = (Button) findViewById(R.id.button_clear);
+        mClearButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                hobbies.clear();
+                updateHobbyListDisplay();
+                try {
+                    updateProfile();
+                } catch (IOException e) {
+                    Log.d("ERR", "failed to update profile on clear button press");
+                }
+            }
+        });
 
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
