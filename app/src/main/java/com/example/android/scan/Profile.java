@@ -194,6 +194,7 @@ public class Profile extends AppCompatActivity {
 
         mHobbiesList = (TextView) findViewById(R.id.tv_hobbies_list);
         mName = (TextView) findViewById(R.id.tv_name);
+        mNameInput = (EditText) findViewById(R.id.et_name);
 
         profile = new File(context.getFilesDir(), PROFILE_FILENAME);
 
@@ -235,8 +236,6 @@ public class Profile extends AppCompatActivity {
             }
         });
 
-
-        mNameInput = (EditText) findViewById(R.id.et_name);
         mNameSetButton = (Button) findViewById(R.id.button_set);
         mNameSetButton.setOnClickListener(new View.OnClickListener() {
             @Override
