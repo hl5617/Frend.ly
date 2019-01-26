@@ -22,9 +22,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-/**
- * Created by Omar on 14/07/2015.
- */
 public class Bluetooth {
     private static final int REQUEST_ENABLE_BT = 1111;
 
