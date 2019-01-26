@@ -71,7 +71,6 @@ public class Profile extends AppCompatActivity {
         }
     };
 
-
     private void readProfile() throws IOException {
         hobbies = new ArrayList<>();
         FileInputStream fstream = new FileInputStream(PROFILE_FILENAME);
@@ -88,7 +87,6 @@ public class Profile extends AppCompatActivity {
 
     private void updateHobbyListDisplay() {
         mTestView.setText("updateHobbyListDisplay");
-        //todo: update the displayed ui element that has all the possibleHobbies
         mHobbiesListAdapter.updateList(hobbies);
     }
 
@@ -127,14 +125,20 @@ public class Profile extends AppCompatActivity {
     private boolean removeFromHobbyList(int i) {
         mTestView.setText("removeFromHobbyList");
         // todo: remove from file
-        // todo: updated hobby list ui
+        if (hobbies.remove(possibleHobbies[i])) {
+            try {
+                updateProfile();
+            } catch (IOException e) {
+                Log.d("ERR", "IOException");
+                return false;
+            }
+            return true;
+        }
+
         return false;
     }
 
-    private void updateName(String newName) throws IOException {
-        name = newName;
-        mTestView.setText("updateName");
-
+    private void updateProfile() throws IOException {
         final PrintWriter writer = new PrintWriter(profile);
 
         writer.println(name);
@@ -142,6 +146,16 @@ public class Profile extends AppCompatActivity {
             writer.println(h);
         }
         writer.close();
+    }
+
+    private void updateName(String newName) {
+        name = newName;
+        mTestView.setText("updateName");
+        try {
+            updateProfile();
+        } catch (IOException e) {
+            Log.d("ERR", "IOException");
+        }
     }
 
     @Override
@@ -200,11 +214,7 @@ public class Profile extends AppCompatActivity {
         mNameSetButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                try {
-                    updateName(mNameInput.getText().toString());
-                } catch (IOException e) {
-                    Log.d("ERR", "shouldnt get here 3");
-                }
+                updateName(mNameInput.getText().toString());
             }
         });
 
