@@ -209,6 +209,8 @@ public class Profile extends AppCompatActivity {
         } else {
             try {
                 profile.createNewFile();
+                hobbies = new ArrayList<>();
+                updateName("name not set");
             } catch (IOException e) {
                 mTestView.setText("pppppppj");
             }
