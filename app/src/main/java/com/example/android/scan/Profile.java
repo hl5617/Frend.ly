@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.MenuItem;
@@ -30,6 +32,9 @@ public class Profile extends AppCompatActivity {
     private EditText mNameInput;
     private AutoCompleteTextView mInterestInput;
     private Button mAddButton;
+    private RecyclerView mInterestsList;
+    private RecyclerView.Adapter mAdapter;
+    private RecyclerView.LayoutManager mLayoutManager;
 
     private List<String> interestList;
     private String[] hobbies;
@@ -41,13 +46,10 @@ public class Profile extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    mTextMessage.setText(R.string.title_home);
                     return true;
                 case R.id.navigation_dashboard:
-                    mTextMessage.setText(R.string.title_dashboard);
                     return true;
                 case R.id.navigation_notifications:
-                    mTextMessage.setText(R.string.title_notifications);
                     return true;
             }
             return false;
@@ -94,6 +96,16 @@ public class Profile extends AppCompatActivity {
         mInterestInput.setAdapter(mInterestInputAdapter);
 
         mNameInput = (EditText) findViewById(R.id.et_name); //listener must edit text in first line
+
+        mInterestsList = findViewById(R.id.rv_interests_list);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        mInterestsList.setLayoutManager(layoutManager);
+
+        mLayoutManager = new LinearLayoutManager(this);
+        mInterestsList.setLayoutManager(mLayoutManager);
+
+        mAdapter = new InterestsAdapter(interestList);
+        mInterestsList.setAdapter(mAdapter);
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
