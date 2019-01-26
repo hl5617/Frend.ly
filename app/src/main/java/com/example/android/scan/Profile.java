@@ -16,9 +16,14 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
@@ -33,8 +38,10 @@ public class Profile extends AppCompatActivity {
     public static final String PROFILE_FILENAME = "profile.txt";
 
     private File profile;
+    private List<String> profileLines;
 
     private TextView mTextMessage;
+    private TextView mTestView;
     private EditText mNameInput;
     private AutoCompleteTextView mInterestInput;
     private Button mAddButton;
@@ -63,65 +70,74 @@ public class Profile extends AppCompatActivity {
         }
     };
 
-    private void loadProfile() throws IOException {
-        if (!profile.createNewFile()) {
-            FileInputStream fstream = new FileInputStream(PROFILE_FILENAME);
-            Scanner br = new Scanner(new InputStreamReader(fstream));
-            if (br.hasNext()) {
-                String name = br.nextLine();
-                mNameInput.setText(name);
-            }
-            while (br.hasNext()) {
-                String interestKey = br.nextLine();
-                if (!TextUtils.isDigitsOnly(interestKey)) {
-                    Log.d("ERR", "shouldnt get here");
-                } else {
-                    addToHobbyList(Integer.parseInt(interestKey));
-                }
-            }
-            fstream.close();
-            return;
+    private void readProfileToList() throws IOException {
+        profileLines = new ArrayList<>();
+        FileInputStream fstream = new FileInputStream(PROFILE_FILENAME);
+        Scanner br = new Scanner(new InputStreamReader(fstream));
+        while (br.hasNext()) {
+            String line = br.nextLine();
+            profileLines.add(line);
         }
+        fstream.close();
     }
 
     private void updateHobbyListDisplay() {
+        mTestView.setText("updateHobbyListDisplay");
         //todo: update the displayed ui element that has all the hobbies
+        for (String pl : profileLines) {
+            // todo:
+        }
     }
 
-    private void addToHobbyList(int i) {
-        //todo: add to file
-        //todo: update hobby list ui
+    private boolean addToHobbyList(int i) {
+        mTestView.setText("addToHobbyList");
+
+        FileOutputStream fstream;
+        try {
+            fstream = new FileOutputStream(profile, true);
+        } catch (FileNotFoundException e) {
+            return false;
+        }
+        String hobbyIntStr = Integer.toString(i);
+        if (!profileLines.contains(hobbyIntStr)) {
+            profileLines.add(hobbyIntStr);
+
+            PrintWriter pw = new PrintWriter(fstream);
+            pw.append(hobbyIntStr);
+            pw.append("\n");
+            pw.close();
+            updateHobbyListDisplay();
+            return true;
+        }
+        Toast toast = Toast.makeText(getApplicationContext(),
+                "hobby already added",
+                Toast.LENGTH_SHORT);
+
+        toast.show();
+        return false;
     }
 
-    private void removeFromHobbyList(int i) {
+    private boolean removeFromHobbyList(int i) {
+        mTestView.setText("removeFromHobbyList");
         // todo: remove from file
         // todo: updated hobby list ui
+        return false;
     }
 
     private void updateName(String newName) throws IOException {
+        mTestView.setText("updateName");
+
         final PrintWriter writer = new PrintWriter(profile);
 
-        if (profile.createNewFile()) {
+        if (profileLines.isEmpty()) {
             writer.print(newName);
             writer.close();
             return;
         }
 
-        List<String> fileLines = new ArrayList<>();
-        FileInputStream fstream = new FileInputStream(PROFILE_FILENAME);
-        Scanner br = new Scanner(new InputStreamReader(fstream));
-        while (br.hasNext()) {
-            String line = br.nextLine();
-            if (!TextUtils.isDigitsOnly(line)) {
-                Log.d("ERR", "shouldnt get here");
-            } else {
-                fileLines.add(line);
-            }
-        }
-
-        fileLines.set(0, newName);
-        for (String fl : fileLines) {
-            writer.println(fl);
+        profileLines.set(0, newName);
+        for (String pl : profileLines) {
+            writer.println(pl);
         }
         writer.close();
     }
@@ -131,7 +147,21 @@ public class Profile extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         Context context = this.getApplicationContext();
         setContentView(R.layout.activity_profile);
+
+        mTestView = (TextView) findViewById(R.id.tvTest);
+
         profile = new File(context.getFilesDir(), PROFILE_FILENAME);
+        try {
+            if (!profile.createNewFile()) {
+                readProfileToList();
+                mTestView.setText("not createnewfile");
+            } else {
+                profileLines = new ArrayList<>();
+                mTestView.setText("createnewfile");
+            }
+        } catch (IOException e) {
+            Log.d("ERR","sholdnt");
+        }
 
         hobbies = (String[]) getResources().getStringArray(R.array.hobby_array);
 
@@ -162,11 +192,7 @@ public class Profile extends AppCompatActivity {
             }
         });
 
-        /*try {
-            loadProfile();
-        } catch (IOException e) {
-            Log.d("ERR", "shouldnt get here 2");
-        }*/
+        updateHobbyListDisplay();
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
