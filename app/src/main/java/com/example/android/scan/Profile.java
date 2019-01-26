@@ -234,6 +234,7 @@ public class Profile extends AppCompatActivity {
         mAddButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mHobbyInput.setText("");
                 addToHobbyList(hobbyInt);
             }
         });
