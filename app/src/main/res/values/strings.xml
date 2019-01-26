@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Scan</string>
+    <string name="app_name">Frend.ly</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
@@ -9,4 +9,5 @@
     <string name="interests_string">Interests</string>
     <string name="add">Add</string>
     <string name="search">Search</string>
+    <string name="nearby">Nearby</string>
 </resources>
