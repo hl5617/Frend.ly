@@ -19,7 +19,7 @@ class HobbiesAdapter extends RecyclerView.Adapter<HobbiesAdapter.InterestViewHol
 
     public void updateList(List<String> newList) {
         interestList = new ArrayList<>();
-        interestList.addAll(newList); ((TextView)TextView)
+        interestList.addAll(newList);
         notifyDataSetChanged();
     }
 

@@ -124,7 +124,6 @@ public class Profile extends AppCompatActivity {
 
     private boolean removeFromHobbyList(int i) {
         mTestView.setText("removeFromHobbyList");
-        // todo: remove from file
         if (hobbies.remove(possibleHobbies[i])) {
             try {
                 updateProfile();
