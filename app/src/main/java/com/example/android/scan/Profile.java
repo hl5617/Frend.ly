@@ -5,17 +5,12 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
-<<<<<<< HEAD
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-=======
-import android.text.Editable;
->>>>>>> 86222b2d5c93f62a17a1886e8689255245cb994d
-import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -23,12 +18,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
@@ -43,22 +36,23 @@ public class Profile extends AppCompatActivity {
     public static final String PROFILE_FILENAME = "profile.txt";
 
     private File profile;
-    private List<String> profileLines;
+    private String name;
+    private List<String> hobbies;
 
     private TextView mTextMessage;
     private TextView mTestView;
     private EditText mNameInput;
-    private AutoCompleteTextView mInterestInput;
+    private AutoCompleteTextView mHobbyInput;
+    private int hobbyInt;
     private Button mAddButton;
 
-    private RecyclerView mInterestsList;
-    private RecyclerView.Adapter mAdapter;
+    private RecyclerView mHobbiesList;
+    private HobbiesAdapter mHobbiesListAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
 
     private Button mNameSetButton;
 
-    private List<String> interestList;
-    private String[] hobbies;
+    private String[] possibleHobbies;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -77,23 +71,25 @@ public class Profile extends AppCompatActivity {
         }
     };
 
-    private void readProfileToList() throws IOException {
-        profileLines = new ArrayList<>();
+
+    private void readProfile() throws IOException {
+        hobbies = new ArrayList<>();
         FileInputStream fstream = new FileInputStream(PROFILE_FILENAME);
         Scanner br = new Scanner(new InputStreamReader(fstream));
+        if (br.hasNext()) {
+            name = br.nextLine();
+        }
         while (br.hasNext()) {
             String line = br.nextLine();
-            profileLines.add(line);
+            hobbies.add(line);
         }
         fstream.close();
     }
 
     private void updateHobbyListDisplay() {
         mTestView.setText("updateHobbyListDisplay");
-        //todo: update the displayed ui element that has all the hobbies
-        for (String pl : profileLines) {
-            // todo:
-        }
+        //todo: update the displayed ui element that has all the possibleHobbies
+        mHobbiesListAdapter.updateList(hobbies);
     }
 
     private boolean addToHobbyList(int i) {
@@ -105,21 +101,25 @@ public class Profile extends AppCompatActivity {
         } catch (FileNotFoundException e) {
             return false;
         }
-        String hobbyIntStr = Integer.toString(i);
-        if (!profileLines.contains(hobbyIntStr)) {
-            profileLines.add(hobbyIntStr);
+        if (!hobbies.contains(possibleHobbies[i])) {
+            hobbies.add(possibleHobbies[i]);
+            updateHobbyListDisplay();
 
             PrintWriter pw = new PrintWriter(fstream);
-            pw.append(hobbyIntStr);
-            pw.append("\n");
+            pw.append(Integer.toString(i));
+            pw.append('\n');
             pw.close();
-            updateHobbyListDisplay();
+
+            Toast toast = Toast.makeText(getApplicationContext(),
+                    "hobby added",
+                    Toast.LENGTH_SHORT);
+            toast.show();
+
             return true;
         }
         Toast toast = Toast.makeText(getApplicationContext(),
                 "hobby already added",
                 Toast.LENGTH_SHORT);
-
         toast.show();
         return false;
     }
@@ -132,19 +132,14 @@ public class Profile extends AppCompatActivity {
     }
 
     private void updateName(String newName) throws IOException {
+        name = newName;
         mTestView.setText("updateName");
 
         final PrintWriter writer = new PrintWriter(profile);
 
-        if (profileLines.isEmpty()) {
-            writer.print(newName);
-            writer.close();
-            return;
-        }
-
-        profileLines.set(0, newName);
-        for (String pl : profileLines) {
-            writer.println(pl);
+        writer.println(name);
+        for (String h : hobbies) {
+            writer.println(h);
         }
         writer.close();
     }
@@ -160,31 +155,45 @@ public class Profile extends AppCompatActivity {
         profile = new File(context.getFilesDir(), PROFILE_FILENAME);
         try {
             if (!profile.createNewFile()) {
-                readProfileToList();
+                readProfile();
                 mTestView.setText("not createnewfile");
             } else {
-                profileLines = new ArrayList<>();
+                hobbies = new ArrayList<>();
                 mTestView.setText("createnewfile");
             }
         } catch (IOException e) {
             Log.d("ERR","sholdnt");
         }
 
-        hobbies = (String[]) getResources().getStringArray(R.array.hobby_array);
+        possibleHobbies = (String[]) getResources().getStringArray(R.array.hobby_array);
+
+        mHobbyInput = (AutoCompleteTextView) findViewById(R.id.at_interest_input);
+        // TODO: only allow autocomplete hobby values
+        ArrayAdapter<String> mInterestInputAdapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_dropdown_item_1line, Arrays.asList(possibleHobbies));
+        mHobbyInput.setAdapter(mInterestInputAdapter);
+        mHobbyInput.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long rowId) {
+                String selection = (String) parent.getItemAtPosition(position);
+                hobbyInt = -1;
+
+                for (int i = 0; i < possibleHobbies.length; i++) {
+                    if (possibleHobbies[i].equals(selection)) {
+                        hobbyInt = i;
+                        break;
+                    }
+                }
+            }
+        });
 
         mAddButton = (Button) findViewById(R.id.button_add);
         mAddButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addToHobbyList(mInterestInput.getListSelection());
+                addToHobbyList(hobbyInt);
             }
         });
-
-        mInterestInput = (AutoCompleteTextView) findViewById(R.id.at_interest_input);
-        // TODO: only allow autocomplete hobby values
-        ArrayAdapter<String> mInterestInputAdapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_dropdown_item_1line, Arrays.asList(hobbies));
-        mInterestInput.setAdapter(mInterestInputAdapter);
 
         mNameInput = (EditText) findViewById(R.id.et_name);
         mNameSetButton = (Button) findViewById(R.id.button_set);
@@ -199,19 +208,18 @@ public class Profile extends AppCompatActivity {
             }
         });
 
-        updateHobbyListDisplay();
-
-        mInterestsList = findViewById(R.id.rv_interests_list);
+        mHobbiesList = findViewById(R.id.rv_interests_list);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        mInterestsList.setLayoutManager(layoutManager);
+        mHobbiesList.setLayoutManager(layoutManager);
 
         mLayoutManager = new LinearLayoutManager(this);
-        mInterestsList.setLayoutManager(mLayoutManager);
+        mHobbiesList.setLayoutManager(mLayoutManager);
+        mHobbiesListAdapter = new HobbiesAdapter(hobbies);
+        mHobbiesList.setAdapter(mHobbiesListAdapter);
 
-        mAdapter = new InterestsAdapter(interestList);
-        mInterestsList.setAdapter(mAdapter);
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
+
 }

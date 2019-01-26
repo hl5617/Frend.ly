@@ -9,12 +9,18 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-class InterestsAdapter extends RecyclerView.Adapter<InterestsAdapter.InterestViewHolder> {
+class HobbiesAdapter extends RecyclerView.Adapter<HobbiesAdapter.InterestViewHolder> {
 
     private List<String> interestList;
 
-    public InterestsAdapter(List<String> interestList) {
+    public HobbiesAdapter(List<String> interestList) {
         this.interestList = interestList;
+    }
+
+    public void updateList(List<String> newList) {
+        interestList = new ArrayList<>();
+        interestList.addAll(newList); ((TextView)TextView)
+        notifyDataSetChanged();
     }
 
     @NonNull
