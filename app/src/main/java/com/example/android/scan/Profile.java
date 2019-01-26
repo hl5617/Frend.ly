@@ -84,6 +84,7 @@ public class Profile extends AppCompatActivity {
             String line = reader.readLine();
             if (line != null) {
                 name = line;
+                mName.setText("Name: " + name);
             }
             while(line != null){
                 line = reader.readLine();
@@ -103,7 +104,6 @@ public class Profile extends AppCompatActivity {
             return;
         }
         mTestView.setText("updateHobbyListDisplay");
-        //mHobbiesListAdapter.updateList(hobbies);
         StringBuilder phatString = new StringBuilder();
         for (String h : hobbies) {
             phatString.append(h);
@@ -189,6 +189,9 @@ public class Profile extends AppCompatActivity {
 
         mTestView = (TextView) findViewById(R.id.tvTest);
 
+        mHobbiesList = (TextView) findViewById(R.id.tv_hobbies_list);
+        mName = (TextView) findViewById(R.id.tv_name);
+
         profile = new File(context.getFilesDir(), PROFILE_FILENAME);
 
         if (profile.exists()) {
@@ -229,7 +232,7 @@ public class Profile extends AppCompatActivity {
             }
         });
 
-        mName = (TextView) findViewById(R.id.tv_name);
+
         mNameInput = (EditText) findViewById(R.id.et_name);
         mNameSetButton = (Button) findViewById(R.id.button_set);
         mNameSetButton.setOnClickListener(new View.OnClickListener() {
@@ -239,7 +242,6 @@ public class Profile extends AppCompatActivity {
             }
         });
 
-        mHobbiesList = (TextView) findViewById(R.id.tv_hobbies_list);
 
 
 
