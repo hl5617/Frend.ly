@@ -190,6 +190,8 @@ public class Profile extends AppCompatActivity {
         Context context = this.getApplicationContext();
         setContentView(R.layout.activity_profile);
 
+        possibleHobbies = (String[]) getResources().getStringArray(R.array.hobby_array);
+
         mTestView = (TextView) findViewById(R.id.tvTest);
 
         mHobbiesList = (TextView) findViewById(R.id.tv_hobbies_list);
@@ -206,7 +208,7 @@ public class Profile extends AppCompatActivity {
             }
         }
 
-        possibleHobbies = (String[]) getResources().getStringArray(R.array.hobby_array);
+
 
         mHobbyInput = (AutoCompleteTextView) findViewById(R.id.at_interest_input);
         // TODO: only allow autocomplete hobby values
