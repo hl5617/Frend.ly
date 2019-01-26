@@ -9,4 +9,11 @@
     <string name="interests_string">Interests</string>
     <string name="add">Add</string>
     <string name="search">Search</string>
+
+    <string-array name="hobby_array">
+        <item>Reading</item>
+        <item>Swimming</item>
+        <item>Jumping</item>
+        <item>Rock paper scissors</item>
+    </string-array>
 </resources>
