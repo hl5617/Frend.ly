@@ -18,6 +18,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -75,20 +76,32 @@ public class Profile extends AppCompatActivity {
     private void readProfile() throws IOException {
         //mTestView.setText("readProfile");
         hobbies = new ArrayList<>();
-        FileInputStream fstream = new FileInputStream(PROFILE_FILENAME);
-        Scanner br = new Scanner(new InputStreamReader(fstream));
-        if (br.hasNext()) {
-            name = br.nextLine();
+        FileInputStream is;
+        BufferedReader reader;
+        if (profile.exists()) {
+            is = new FileInputStream(profile);
+            reader = new BufferedReader(new InputStreamReader(is));
+            String line = reader.readLine();
+            if (line != null) {
+                name = line;
+            }
+            while(line != null){
+                line = reader.readLine();
+                if (line != null) {
+                    hobbies.add(line);
+                }
+            }
+        } else {
+            mTestView.setText("file does not exist");
         }
-        while (br.hasNext()) {
-            String line = br.nextLine();
-            hobbies.add(line);
-        }
-        fstream.close();
         updateHobbyListDisplay();
     }
 
     private void updateHobbyListDisplay() {
+        if (hobbies.isEmpty()) {
+            mTestView.setText("updateHobby: empty list");
+            return;
+        }
         mTestView.setText("updateHobbyListDisplay");
         //mHobbiesListAdapter.updateList(hobbies);
         StringBuilder phatString = new StringBuilder();
@@ -96,6 +109,7 @@ public class Profile extends AppCompatActivity {
             phatString.append(h);
             phatString.append('\n');
         }
+        // gets to at least here before crashing
         mHobbiesList.setText(phatString.toString());
     }
 
@@ -176,16 +190,13 @@ public class Profile extends AppCompatActivity {
         mTestView = (TextView) findViewById(R.id.tvTest);
 
         profile = new File(context.getFilesDir(), PROFILE_FILENAME);
-        try {
-            if (!profile.createNewFile()) {
+
+        if (profile.exists()) {
+            try {
                 readProfile();
-                mTestView.setText("not createnewfile");
-            } else {
-                hobbies = new ArrayList<>();
-                mTestView.setText("createnewfile");
+            } catch (IOException e){
+                mTestView.setText("kdjfskjd");
             }
-        } catch (IOException e) {
-            Log.d("ERR","sholdnt");
         }
 
         possibleHobbies = (String[]) getResources().getStringArray(R.array.hobby_array);
