@@ -206,9 +206,13 @@ public class Profile extends AppCompatActivity {
             } catch (IOException e){
                 mTestView.setText("kdjfskjd");
             }
+        } else {
+            try {
+                profile.createNewFile();
+            } catch (IOException e) {
+                mTestView.setText("pppppppj");
+            }
         }
-
-
 
         mHobbyInput = (AutoCompleteTextView) findViewById(R.id.at_interest_input);
         // TODO: only allow autocomplete hobby values
