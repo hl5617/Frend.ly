@@ -10,4 +10,10 @@
     <string name="add">Add</string>
     <string name="search">Search</string>
     <string name="nearby">Nearby</string>
+    <string-array name="hobby_array">
+        <item>Reading</item>
+        <item>Swimming</item>
+        <item>Jumping</item>
+        <item>Rock paper scissors</item>
+    </string-array>
 </resources>
