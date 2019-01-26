@@ -1,5 +1,6 @@
 package com.example.android.scan;
 
+import android.bluetooth.BluetoothDevice;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -8,6 +9,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -45,13 +49,44 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void sendString(View view) {
+        Bluetooth bluetooth = new Bluetooth(view.getContext());
+
         EditText edit = findViewById(R.id.editText);
 
         String string = edit.getText().toString();
 
-        TextView textView = findViewById(R.id.textView);
 
-        textView.setText(string);
+        bluetooth.onStart();
+        bluetooth.enable();
+        bluetooth.startScanning();
+
+        List<BluetoothDevice> deviceList = bluetooth.getPairedDevices();
+
+        for (BluetoothDevice dev : deviceList) {
+            bluetooth.pair(dev);
+            bluetooth.connectToDevice(dev);
+            bluetooth.send(string);
+            bluetooth.disconnect();
+            bluetooth.unpair(dev);
+        }
+
+        bluetooth.stopScanning();
+        bluetooth.onStop();
+
+//        TextView textView = findViewById(R.id.textView);
+//
+//        textView.setText(string);
+    }
+
+    public void receiveString(View view) {
+        Bluetooth bluetooth = new Bluetooth(view.getContext());
+
+        bluetooth.onStart();
+        bluetooth.enable();
+        bluetooth.startScanning();
+
+
+
     }
 
 
