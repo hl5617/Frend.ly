@@ -42,21 +42,23 @@ public class MainActivity extends AppCompatActivity {
         listDataHeader = new ArrayList<String>();
         listDataChild = new HashMap<String, List<String>>();
 
-        listDataHeader.add("steve");
-        listDataHeader.add("waldo");
+        List<String> steveHobbies = new ArrayList<String>();
+        steveHobbies.add("Tea bag collecting");
+        steveHobbies.add("Bird watching");
+        steveHobbies.add("Amateur yodelling");
 
-        List<String> steve = new ArrayList<String>();
-        steve.add("Tea bag collecting");
-        steve.add("Bird watching");
-        steve.add("Amateur yodelling");
+        List<String> waldoHobbies = new ArrayList<String>();
+        waldoHobbies.add("Gunsmithing");
+        waldoHobbies.add("Swimming");
+        waldoHobbies.add("Hunting");
 
-        List<String> waldo = new ArrayList<String>();
-        waldo.add("Gunsmithing");
-        waldo.add("Swimming");
-        waldo.add("Hunting");
+        addDude("waldo", waldoHobbies);
+        addDude("steve", steveHobbies);
+    }
 
-        listDataChild.put(listDataHeader.get(0), waldo); // Header, Child data
-        listDataChild.put(listDataHeader.get(1), steve);
+    private void addDude(String name, List<String> hobbies) {
+        listDataHeader.add(name);
+        listDataChild.put(listDataHeader.get(listDataHeader.size() - 1), hobbies);
     }
 
     @Override
