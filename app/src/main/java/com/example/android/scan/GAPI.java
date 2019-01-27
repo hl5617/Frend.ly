@@ -58,19 +58,19 @@ public abstract class GAPI extends AppCompatActivity {
     private static final int REQUEST_CODE_REQUIRED_PERMISSIONS = 1;
 
     /** Our handler to Nearby Connections. */
-    private ConnectionsClient mConnectionsClient;
+    private ConnectionsClient connectionsClient;
 
     /** The devices we've discovered near us. */
-    private final Map<String, ConnectionsActivity.Endpoint> mDiscoveredEndpoints = new HashMap<>();
+//    private final Map<String, ConnectionsActivity.Endpoint> mDiscoveredEndpoints = new HashMap<>();
 
 
-    private final Map<String, ConnectionsActivity.Endpoint> mPendingConnections = new HashMap<>();
+//    private final Map<String, ConnectionsActivity.Endpoint> mPendingConnections = new HashMap<>();
 
     /**
      * The devices we are currently connected to. For advertisers, this may be large. For discoverers,
      * there will only be one entry in this map.
      */
-    private final Map<String, ConnectionsActivity.Endpoint> mEstablishedConnections = new HashMap<>();
+//    private final Map<String, ConnectionsActivity.Endpoint> mEstablishedConnections = new HashMap<>();
 
     /**
      * True if we are asking a discovered device to connect to us. While we ask, we cannot ask another
@@ -138,7 +138,7 @@ public abstract class GAPI extends AppCompatActivity {
                 @Override
                 public void onConnectionInitiated(String endpointId, ConnectionInfo connectionInfo) {
                     // Automatically accept the connection on both sides.
-                    Nearby.getConnectionsClient(context).acceptConnection(endpointId, payloadCallback);
+                    connectionsClient.acceptConnection(endpointId, payloadCallback);
                 }
 
                 @Override
@@ -148,8 +148,8 @@ public abstract class GAPI extends AppCompatActivity {
                             // We're connected! Can now start sending and receiving data.
                             Log.i(TAG, "onConnectionResult: connection successful");
 
-                            Nearby.getConnectionsClient(context).stopDiscovery();
-                            Nearby.getConnectionsClient(context).stopAdvertising();
+                            connectionsClient.stopDiscovery();
+                            connectionsClient.stopAdvertising();
 
                             setEndpointId(endpointId);
                             setStatusText(getString(0));
@@ -174,7 +174,7 @@ public abstract class GAPI extends AppCompatActivity {
                 @Override
                 public void onEndpointFound(String endpointId, DiscoveredEndpointInfo info) {
                     // An endpoint was found. We request a connection to it.
-                    Nearby.getConnectionsClient(context)
+                    connectionsClient
                             .requestConnection(getUserNickname(), endpointId, connectionLifecycleCallback)
                             .addOnSuccessListener(
                                     (Void unused) -> {
@@ -197,7 +197,7 @@ public abstract class GAPI extends AppCompatActivity {
     private void startDiscovery() {
         DiscoveryOptions discoveryOptions =
                 new DiscoveryOptions.Builder().setStrategy(Strategy.P2P_CLUSTER).build();
-        Nearby.getConnectionsClient(context)
+        connectionsClient
                 .startDiscovery("com.example.android.scan", endpointDiscoveryCallback, discoveryOptions)
                 .addOnSuccessListener(
                         (Void unused) -> {
@@ -212,7 +212,7 @@ public abstract class GAPI extends AppCompatActivity {
     private void startAdvertising() {
         AdvertisingOptions advertisingOptions =
                 new AdvertisingOptions.Builder().setStrategy(Strategy.P2P_CLUSTER).build();
-        Nearby.getConnectionsClient(context)
+        connectionsClient
                 .startAdvertising(
                         getUserNickname(), "com.example.android.scan", connectionLifecycleCallback, advertisingOptions)
                 .addOnSuccessListener(
@@ -228,7 +228,7 @@ public abstract class GAPI extends AppCompatActivity {
     /** Stops advertising. */
     protected void stopAdvertising() {
         mIsAdvertising = false;
-        mConnectionsClient.stopAdvertising();
+        connectionsClient.stopAdvertising();
     }
 
     /** Returns {@code true} if currently advertising. */
@@ -236,7 +236,7 @@ public abstract class GAPI extends AppCompatActivity {
         return mIsAdvertising;
     }
 
-    @Override
+//    @Override
     public void onConnectionInitiated(String endpointId, ConnectionInfo info) {
         new AlertDialog.Builder(context)
                 .setTitle("Accept connection to " + info.getEndpointName())
@@ -245,8 +245,7 @@ public abstract class GAPI extends AppCompatActivity {
                         "Accept",
                         (DialogInterface dialog, int which) ->
                                 // The user confirmed, so we can accept the connection.
-                                Nearby.getConnectionsClient(context)
-                                        .acceptConnection(endpointId, payloadCallback))
+                                connectionsClient.acceptConnection(endpointId, payloadCallback))
                 .setNegativeButton(
                         android.R.string.cancel,
                         (DialogInterface dialog, int which) ->
@@ -258,8 +257,7 @@ public abstract class GAPI extends AppCompatActivity {
 
 
     private void getConnection(String endpointId) {
-        Nearby.getConnectionsClient(context)
-                .requestConnection(endpointId, endpointId,connectionLifecycleCallback)
+            connectionsClient.requestConnection(endpointId, endpointId,connectionLifecycleCallback)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     public void onSuccess(Void aVoid) {
                         Log.d("ERR", "Requesting connection..");
@@ -274,7 +272,7 @@ public abstract class GAPI extends AppCompatActivity {
     }
 
     public void transfer() {
-        Nearby.getConnectionsClient(this).sendPayload(endpointId, payload);
+        connectionsClient.sendPayload(endpointId, payload);
     }
 
 
