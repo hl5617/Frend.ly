@@ -120,7 +120,6 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onPayloadReceived(String endpointId, Payload payload) {
                     Log.d("RE", "RECEIVING THE PAYLOAD\n");
-                    connectButton.setText("received payload");
                     payload_g = payload;
                     otherProfile = payload_g.asFile().asJavaFile();
                     try {
@@ -174,11 +173,10 @@ public class MainActivity extends AppCompatActivity {
                         try {
                             Log.d("PROGILE", "WE ARE SENDING THEPROFILE\n");
                             sendFile(profile);
-                            connectButton.setText("sent payload");
                         } catch (FileNotFoundException e) {}
 
-                        connectionsClient.stopDiscovery();
-                        connectionsClient.stopAdvertising();
+//                        connectionsClient.stopDiscovery();
+//                        connectionsClient.stopAdvertising();
 
                         otherID = endpointId;
                         setOpponentName(opponentName);
