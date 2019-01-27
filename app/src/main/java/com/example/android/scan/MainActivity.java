@@ -119,6 +119,7 @@ public class MainActivity extends AppCompatActivity {
             new PayloadCallback() {
                 @Override
                 public void onPayloadReceived(String endpointId, Payload payload) {
+                    connectButton.setText("received payload");
                     payload_g = payload;
                     otherProfile = payload_g.asFile().asJavaFile();
                     try {
@@ -171,6 +172,7 @@ public class MainActivity extends AppCompatActivity {
 
                         try {
                             sendFile(profile);
+                            connectButton.setText("sent payload");
                         } catch (FileNotFoundException e) {}
 
                         connectionsClient.stopDiscovery();
