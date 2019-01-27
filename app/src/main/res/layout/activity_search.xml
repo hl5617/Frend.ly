@@ -21,8 +21,26 @@
 
     <ExpandableListView
         android:id="@+id/lvExp"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_width="match_parent"/>
+        android:visibility="gone" />
+
+    <Button
+        android:id="@+id/connect"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="connect"
+        tools:layout_editor_absoluteX="42dp"
+        tools:layout_editor_absoluteY="583dp" />
+
+    <Button
+        android:id="@+id/disconnect"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="disconnect"
+        app:layout_constraintBottom_toBottomOf="@+id/connect"
+        app:layout_constraintTop_toTopOf="@+id/connect"
+        tools:layout_editor_absoluteX="161dp" />
 
 
 </android.support.constraint.ConstraintLayout>
