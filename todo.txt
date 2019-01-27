@@ -1,0 +1,9 @@
+Front End - Entering interests
+          - suggesting events
+          - A temporary profile page
+          - Logo and name
+         
+Back End - Bluetooth transmission of .txt files
+         - Location services which check for users of the app within a certain radius
+         
+AND ANYTHING ELSE ANYONE CAN THING OF!!!
