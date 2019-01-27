@@ -74,7 +74,10 @@ public class MainActivity extends AppCompatActivity {
 
     private List<String> hobbies;
     private String name;
+    private String otherName;
     private File profile;
+    private File otherProfile;
+    private List<String> otherHobbies;
     private String[] possibleHobbies;
 
     Payload payload_g;
@@ -101,7 +104,6 @@ public class MainActivity extends AppCompatActivity {
     private ConnectionsClient connectionsClient;
 
     private String otherID;
-    private String otherName;
 
     private Button disconnectButton;
     private Button connectButton;
@@ -115,12 +117,20 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onPayloadReceived(String endpointId, Payload payload) {
                     payload_g = payload;
-                    File file = payload_g.asFile().asJavaFile();
+                    otherProfile = payload_g.asFile().asJavaFile();
                     try {
-                        BufferedWriter writer = new BufferedWriter(new FileWriter("profile.txt"));
-                        writer.write(file.toString());
+                        readOtherProfile();
                     } catch (IOException e) {
-                        System.out.println("File is empty\n"); }
+                        Log.d("ERR", "DLKJFLKDSJF");
+                    }
+                    prepareListData();
+                    /*try {
+                        BufferedWriter writer = new BufferedWriter(new FileWriter("otherProfile.txt"));
+                        writer.write(otherProfile.toString());
+                        writer.close();
+                    } catch (IOException e) {
+                        System.out.println("File is empty\n");
+                    }*/
                 }
 
                 @Override
@@ -157,8 +167,7 @@ public class MainActivity extends AppCompatActivity {
                         Log.i(TAG, "onConnectionResult: connection successful");
 
                         try {
-                            String currentDir = System.getProperty("user.dir");
-                            sendFile(new File(currentDir + "/test.txt"));
+                            sendFile(profile);
                         } catch (FileNotFoundException e) {}
 
                         connectionsClient.stopDiscovery();
@@ -200,6 +209,27 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    private void readOtherProfile() throws IOException {
+        //mTestView.setText("readMyProfile");
+        otherHobbies = new ArrayList<>();
+        FileInputStream is;
+        BufferedReader reader;
+        if (otherProfile.exists()) {
+            is = new FileInputStream(otherProfile);
+            reader = new BufferedReader(new InputStreamReader(is));
+            String line = reader.readLine();
+            if (line != null) {
+                otherName = line;
+            }
+            while(line != null){
+                line = reader.readLine();
+                if (line != null) {
+                    otherHobbies.add(possibleHobbies[Integer.parseInt(line)]);
+                }
+            }
+        }
+    }
+
     private void giveNoName() throws IOException {
         name = "name not set";
         final PrintWriter writer = new PrintWriter(profile);
@@ -212,7 +242,9 @@ public class MainActivity extends AppCompatActivity {
         listDataHeader = new ArrayList<String>();
         listDataChild = new HashMap<String, List<String>>();
 
-        List<String> steveHobbies = new ArrayList<String>();
+        addDude(otherName, otherHobbies);
+
+        /*List<String> steveHobbies = new ArrayList<String>();
         steveHobbies.add("Tea bag collecting");
         steveHobbies.add("Bird watching");
         steveHobbies.add("Amateur yodelling");
@@ -220,10 +252,10 @@ public class MainActivity extends AppCompatActivity {
         List<String> waldoHobbies = new ArrayList<String>();
         waldoHobbies.add("Gunsmithing");
         waldoHobbies.add("Swimming");
-        waldoHobbies.add("Hunting");
+        waldoHobbies.add("Hunting");*/
 
-        addDude("waldo", waldoHobbies);
-        addDude("steve", steveHobbies);
+        //addDude("waldo", waldoHobbies);
+        //addDude("steve", steveHobbies);
     }
 
     private void addDude(String name, List<String> theirHobbies) {
@@ -276,7 +308,7 @@ public class MainActivity extends AppCompatActivity {
 
         expListView = (ExpandableListView) findViewById(R.id.lvExp);
 
-        prepareListData();
+        //prepareListData();
 
         listAdapter = new ExpandableListAdapter(this, listDataHeader, listDataChild);
 
