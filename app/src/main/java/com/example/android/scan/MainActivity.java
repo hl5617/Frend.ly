@@ -2,17 +2,25 @@ package com.example.android.scan;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.annotation.CallSuper;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.nearby.Nearby;
+import com.google.android.gms.nearby.connection.ConnectionsClient;
 
 public class MainActivity extends AppCompatActivity {
+
+    Context context = getApplicationContext();
+
+    ConnectionsClient connectionsClient = Nearby.getConnectionsClient(context);
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -41,10 +49,31 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onStart() {
+        super.onStart();
+    }
+
+    @Override
     protected void onStop() {
         Nearby.getConnectionsClient(context).stopAllEndpoints();
 
         super.onStop();
+    }
+
+    @CallSuper
+    @Override
+    public void onRequestPermissionsResult(
+            int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        for (int grantResult : grantResults) {
+            if (grantResult == PackageManager.PERMISSION_DENIED) {
+                Toast.makeText(this, 0, Toast.LENGTH_LONG).show();
+                finish();
+                return;
+            }
+        }
+        recreate();
     }
 
     public void gotoProfile() {
@@ -54,8 +83,8 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void exch(View view) {
-
+    public void disconnect(View view) {
+        connectionsClient.disconnectFromEndpoint("");
     }
 
 }

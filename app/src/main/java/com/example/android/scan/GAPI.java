@@ -47,7 +47,7 @@ public abstract class GAPI extends AppCompatActivity {
 
     private static final String TAG = "FRENDS";
 
-    String endpointId;
+    public String endpointId;
 
     private TextView statusText;
 
@@ -58,7 +58,7 @@ public abstract class GAPI extends AppCompatActivity {
     private static final int REQUEST_CODE_REQUIRED_PERMISSIONS = 1;
 
     /** Our handler to Nearby Connections. */
-    private ConnectionsClient connectionsClient;
+    private ConnectionsClient connectionsClient = Nearby.getConnectionsClient(context);
 
     /** The devices we've discovered near us. */
 //    private final Map<String, ConnectionsActivity.Endpoint> mDiscoveredEndpoints = new HashMap<>();
@@ -127,6 +127,10 @@ public abstract class GAPI extends AppCompatActivity {
 
     public void setEndpointId(String id) {
         endpointId = id;
+    }
+
+    public String getEndpointId() {
+        return endpointId;
     }
 
     private void setStatusText(String text) {
