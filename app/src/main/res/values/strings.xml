@@ -17,6 +17,7 @@
     <string name="clear">Clear</string>
     <string name="set">Set</string>
     <string name="enter_your_name">Enter your name</string>
+    <string name="load">Load</string>
     <string-array name="hobby_array">
         <item>3D printing</item>
         <item>Acrobatics</item>
