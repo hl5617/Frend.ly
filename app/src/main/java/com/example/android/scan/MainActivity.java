@@ -43,6 +43,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -240,11 +241,40 @@ public class MainActivity extends AppCompatActivity {
         writer.close();
     }
 
+    /*public void prepareExampleListData() {
+        listDataHeader = new ArrayList<String>();
+        listDataChild = new HashMap<String, List<String>>();
+
+        addDude("steve", Arrays.asList("Tea bag collecting"));
+
+    }*/
+
     private void prepareListData() {
         listDataHeader = new ArrayList<String>();
         listDataChild = new HashMap<String, List<String>>();
 
         addDude(otherName, otherHobbies);
+
+        /*List<String> steveHobbies = new ArrayList<String>();
+        steveHobbies.add("Tea bag collecting");
+        steveHobbies.add("Bird watching");
+        steveHobbies.add("Amateur yodelling");
+
+        List<String> waldoHobbies = new ArrayList<String>();
+        waldoHobbies.add("Gunsmithing");
+        waldoHobbies.add("Swimming");
+        waldoHobbies.add("Hunting");*/
+
+        //addDude("waldo", waldoHobbies);
+        //addDude("steve", steveHobbies);
+    }
+
+
+    private void prepareJunkListData() {
+        listDataHeader = new ArrayList<String>();
+        listDataChild = new HashMap<String, List<String>>();
+
+        listDataChild.put("THIS SHOULD NOT SHOWWW", new ArrayList<String>());
 
         /*List<String> steveHobbies = new ArrayList<String>();
         steveHobbies.add("Tea bag collecting");
@@ -269,6 +299,9 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         listDataChild.put(listDataHeader.get(listDataHeader.size() - 1), theirHobbiesFiltered);
+
+        listAdapter = new ExpandableListAdapter(this, listDataHeader, listDataChild);
+        expListView.setAdapter(listAdapter);
     }
 
     @Override
@@ -300,6 +333,13 @@ public class MainActivity extends AppCompatActivity {
         disconnectButton = findViewById(R.id.disconnect);
         connectButton = findViewById(R.id.connect);
 
+        /*connectButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //prepareExampleListData();
+            }
+        });*/
+
         //statusText = findViewById(R.id.status);
 
         //TextView nameView = findViewById(R.id.name);
@@ -310,7 +350,7 @@ public class MainActivity extends AppCompatActivity {
 
         expListView = (ExpandableListView) findViewById(R.id.lvExp);
 
-        //prepareListData();
+        prepareJunkListData();
 
         listAdapter = new ExpandableListAdapter(this, listDataHeader, listDataChild);
 
