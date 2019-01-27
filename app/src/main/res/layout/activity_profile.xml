@@ -36,6 +36,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
+        android:hint="@string/enter_your_name"
         android:inputType="textPersonName"
         app:layout_constraintStart_toStartOf="@+id/tv_name"
         app:layout_constraintTop_toBottomOf="@+id/tv_name" />
@@ -81,7 +82,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:text="Set"
+        android:text="@string/set"
         app:layout_constraintBottom_toBottomOf="@+id/et_name"
         app:layout_constraintStart_toEndOf="@+id/et_name"
         app:layout_constraintTop_toTopOf="@+id/et_name" />
@@ -98,20 +99,20 @@
         android:id="@+id/tv_hobbies_list"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:paddingLeft="16dp"
-        android:text="Hobbies"
-        app:layout_constraintTop_toBottomOf="@+id/at_interest_input"
-        tools:layout_editor_absoluteX="16dp" />
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:text="@string/hobbies"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_clear" />
 
     <Button
         android:id="@+id/button_clear"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:text="Clear"
-        app:layout_constraintBottom_toBottomOf="@+id/button_add"
-        app:layout_constraintStart_toEndOf="@+id/button_add"
-        app:layout_constraintTop_toTopOf="@+id/button_add" />
+        android:text="@string/clear"
+        app:layout_constraintStart_toStartOf="@+id/button_add"
+        app:layout_constraintTop_toBottomOf="@+id/button_add" />
 
 </android.support.constraint.ConstraintLayout>

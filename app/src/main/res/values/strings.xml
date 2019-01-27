@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Frend.ly</string>
+    <string name="app_name">frend.ly</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Search</string>
@@ -11,6 +11,12 @@
     <string name="add">Add</string>
     <string name="search">Search</string>
     <string name="nearby">Nearby</string>
+    <string name="disconnect">disconnect</string>
+    <string name="connect">connect</string>
+    <string name="hobbies">Hobbies</string>
+    <string name="clear">Clear</string>
+    <string name="set">Set</string>
+    <string name="enter_your_name">Enter your name</string>
     <string-array name="hobby_array">
         <item>3D printing</item>
         <item>Acrobatics</item>
