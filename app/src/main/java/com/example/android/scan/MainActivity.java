@@ -120,6 +120,7 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onPayloadReceived(String endpointId, Payload payload) {
                     Log.d("RE", "RECEIVING THE PAYLOAD\n");
+                    connectionsClient.stopDiscovery();
                     payload_g = payload;
                     otherProfile = payload_g.asFile().asJavaFile();
                     try {
@@ -176,12 +177,12 @@ public class MainActivity extends AppCompatActivity {
                         } catch (FileNotFoundException e) {}
 
 //                        connectionsClient.stopDiscovery();
-//                        connectionsClient.stopAdvertising();
+                        connectionsClient.stopAdvertising();
 
                         otherID = endpointId;
                         setOpponentName(opponentName);
                         //setStatusText(getString(R.string.status_connected));
-                        setButtonState(true);
+//                        setButtonState(true);
                     } else {
                         Log.i(TAG, "onConnectionResult: connection failed");
                     }
@@ -457,7 +458,7 @@ public class MainActivity extends AppCompatActivity {
 
         Log.d("SEND", "LITERALY SENDING FILE\n");
         //setStatusText(getString(R.string.game_choice, choice.name()));
-        connectButton.setEnabled(false);
+//        connectButton.setEnabled(false);
     }
 
     /** Shows a status message to the user. */
