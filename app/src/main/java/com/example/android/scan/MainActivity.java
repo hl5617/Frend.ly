@@ -101,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     //Our Strategy
-    private static final Strategy STRATEGY = Strategy.P2P_STAR;
+    private static final Strategy STRATEGY = Strategy.P2P_CLUSTER;
 
     //Our handle to Nearby Clients
     private ConnectionsClient connectionsClient;
@@ -119,6 +119,7 @@ public class MainActivity extends AppCompatActivity {
             new PayloadCallback() {
                 @Override
                 public void onPayloadReceived(String endpointId, Payload payload) {
+                    Log.d("RE", "RECEIVING THE PAYLOAD\n");
                     connectButton.setText("received payload");
                     payload_g = payload;
                     otherProfile = payload_g.asFile().asJavaFile();
@@ -171,6 +172,7 @@ public class MainActivity extends AppCompatActivity {
                         Log.i(TAG, "onConnectionResult: connection successful");
 
                         try {
+                            Log.d("PROGILE", "WE ARE SENDING THEPROFILE\n");
                             sendFile(profile);
                             connectButton.setText("sent payload");
                         } catch (FileNotFoundException e) {}
@@ -211,11 +213,14 @@ public class MainActivity extends AppCompatActivity {
                     hobbies.add(possibleHobbies[Integer.parseInt(line)]);
                 }
             }
+            reader.close();
+            is.close();
         }
     }
 
     private void readOtherProfile() throws IOException {
         //mTestView.setText("readMyProfile");
+        Log.d("YESSS", "READDAD\n");
         otherHobbies = new ArrayList<>();
         FileInputStream is;
         BufferedReader reader;
@@ -226,12 +231,15 @@ public class MainActivity extends AppCompatActivity {
             if (line != null) {
                 otherName = line;
             }
+            Log.d("YESSS", "READDAD345\n");
             while(line != null){
                 line = reader.readLine();
                 if (line != null) {
                     otherHobbies.add(possibleHobbies[Integer.parseInt(line)]);
                 }
             }
+            reader.close();
+            is.close();
         }
     }
 
@@ -252,6 +260,7 @@ public class MainActivity extends AppCompatActivity {
     }*/
 
     private void prepareListData() {
+        Log.d("YESSS", "PREPARE\n");
         listDataHeader = new ArrayList<String>();
         listDataChild = new HashMap<String, List<String>>();
 
@@ -413,8 +422,10 @@ public class MainActivity extends AppCompatActivity {
 
     /** Finds an Frend using Nearby Connections. */
     public void findFrend(View view) {
+        Log.d("IHIH", "sflngkfgnldfgndflkgndlfkgndflkgndlfkgndl\n");
         startAdvertising();
         startDiscovery();
+        Log.d("IHIH", "HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH\n");
         //setStatusText(getString(R.string.status_searching));
     }
 
@@ -446,6 +457,7 @@ public class MainActivity extends AppCompatActivity {
         connectionsClient.sendPayload(
                 otherID, Payload.fromFile(file));
 
+        Log.d("SEND", "LITERALY SENDING FILE\n");
         //setStatusText(getString(R.string.game_choice, choice.name()));
         connectButton.setEnabled(false);
     }
