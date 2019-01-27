@@ -80,6 +80,8 @@ public class MainActivity extends AppCompatActivity {
     private List<String> otherHobbies;
     private String[] possibleHobbies;
 
+    private String opponentName;
+
     Payload payload_g;
 
     private static final String TAG = "FREND.LY";
@@ -158,7 +160,7 @@ public class MainActivity extends AppCompatActivity {
                 public void onConnectionInitiated(String endpointId, ConnectionInfo connectionInfo) {
                     Log.i(TAG, "onConnectionInitiated: accepting connection");
                     connectionsClient.acceptConnection(endpointId, payloadCallback);
-                    otherName = connectionInfo.getEndpointName();
+                    opponentName = connectionInfo.getEndpointName();
                 }
 
                 @Override
@@ -174,7 +176,7 @@ public class MainActivity extends AppCompatActivity {
                         connectionsClient.stopAdvertising();
 
                         otherID = endpointId;
-                        setOpponentName(otherName);
+                        setOpponentName(opponentName);
                         //setStatusText(getString(R.string.status_connected));
                         setButtonState(true);
                     } else {
@@ -412,8 +414,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /** Updates the opponent name on the UI. */
-    private void setOpponentName(String otherName) {
-        //otherText.setText(getString(R.string.opponent_name, otherName));
+    private void setOpponentName(String opponentName) {
+        //otherText.setText(getString(R.string.opponent_name, opponentName));
     }
 
     /** Enables/disables buttons depending on the connection status. */
