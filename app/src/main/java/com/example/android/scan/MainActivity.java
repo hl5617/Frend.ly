@@ -110,6 +110,7 @@ public class MainActivity extends AppCompatActivity {
 
     private Button disconnectButton;
     private Button connectButton;
+    private Button loadButton;
 
     private TextView statusText;
     private TextView otherText;
@@ -250,13 +251,15 @@ public class MainActivity extends AppCompatActivity {
         writer.close();
     }
 
-    /*public void prepareExampleListData() {
+    public void prepareFakeListData() {
+        Log.d("YESSS", "FAKe PREPARE\n");
         listDataHeader = new ArrayList<String>();
         listDataChild = new HashMap<String, List<String>>();
 
-        addDude("steve", Arrays.asList("Tea bag collecting"));
+        addDude("Konstantinos",
+                Arrays.asList("Tea bag collecting", "Cross-stitch", "Dance", "Metalworking", "Lapidary"));
 
-    }*/
+    }
 
     private void prepareListData() {
         Log.d("YESSS", "PREPARE\n");
@@ -342,6 +345,13 @@ public class MainActivity extends AppCompatActivity {
 
         disconnectButton = findViewById(R.id.disconnect);
         connectButton = findViewById(R.id.connect);
+        loadButton = findViewById(R.id.button_load);
+        loadButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                prepareFakeListData();
+            }
+        });
 
         /*connectButton.setOnClickListener(new View.OnClickListener() {
             @Override
