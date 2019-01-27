@@ -34,19 +34,22 @@
         android:id="@+id/connect"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
         android:onClick="findFrend"
-        android:text="Button"
-        tools:layout_editor_absoluteX="161dp"
+        android:text="Connect"
+        app:layout_constraintEnd_toEndOf="parent"
         tools:layout_editor_absoluteY="196dp" />
 
     <Button
         android:id="@+id/disconnect"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
         android:onClick="disconnect"
-        android:text="Button"
-        tools:layout_editor_absoluteX="161dp"
-        tools:layout_editor_absoluteY="378dp" />
+        android:text="Disconnect"
+        app:layout_constraintBottom_toTopOf="@+id/navigation"
+        app:layout_constraintEnd_toEndOf="@+id/navigation" />
 
     <TextView
         android:id="@+id/status"
@@ -68,8 +71,9 @@
         android:id="@+id/name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
         android:text="TextView"
-        tools:layout_editor_absoluteX="317dp"
+        app:layout_constraintEnd_toEndOf="parent"
         tools:layout_editor_absoluteY="126dp" />
 
 

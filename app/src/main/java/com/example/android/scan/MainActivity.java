@@ -34,8 +34,10 @@ import com.google.android.gms.nearby.connection.PayloadCallback;
 import com.google.android.gms.nearby.connection.PayloadTransferUpdate;
 import com.google.android.gms.nearby.connection.Strategy;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.Inet4Address;
 import java.net.InetAddress;
@@ -104,6 +106,12 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onPayloadReceived(String endpointId, Payload payload) {
                     payload_g = payload;
+                    File file = payload_g.asFile().asJavaFile();
+                    try {
+                    BufferedWriter writer = new BufferedWriter(new FileWriter("profile.txt"));
+                        writer.write(file.toString());
+                    } catch (IOException e) {
+                        System.out.println("File is empty\n"); }
                 }
 
                 @Override
@@ -138,6 +146,11 @@ public class MainActivity extends AppCompatActivity {
                 public void onConnectionResult(String endpointId, ConnectionResolution result) {
                     if (result.getStatus().isSuccess()) {
                         Log.i(TAG, "onConnectionResult: connection successful");
+
+                        try {
+                            String currentDir = System.getProperty("user.dir");
+                            sendFile(new File(currentDir + "/test.txt"));
+                        } catch (FileNotFoundException e) {}
 
                         connectionsClient.stopDiscovery();
                         connectionsClient.stopAdvertising();
