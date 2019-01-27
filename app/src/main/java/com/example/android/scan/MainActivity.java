@@ -16,6 +16,14 @@ import android.widget.Toast;
 import com.google.android.gms.nearby.Nearby;
 import com.google.android.gms.nearby.connection.ConnectionsClient;
 
+import java.io.IOException;
+import java.net.Inet4Address;
+import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.net.UnknownHostException;
+import java.util.ArrayList;
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
 
     Context context = getApplicationContext();
@@ -86,5 +94,32 @@ public class MainActivity extends AppCompatActivity {
     public void disconnect(View view) {
         connectionsClient.disconnectFromEndpoint("");
     }
+
+
+
+//
+//    public List<String> checkHosts(String subnet) throws IOException {
+//
+//        InetAddress localHost = Inet4Address.getLocalHost();
+//        NetworkInterface networkInterface = NetworkInterface.getByInetAddress(localHost);
+//        short temp = networkInterface.getInterfaceAddresses().get(0).getNetworkPrefixLength();
+//        System.out.println(temp);
+//
+//
+//
+//        List<String> results = new ArrayList<>();
+//
+//        int timeout = 1000;
+//
+//        for (int i = 1; i < 255; i++) {
+//            String host = subnet + "." + i;
+//            if (InetAddress.getByName(host).isReachable(timeout)) {
+//                results.add(host);
+//            }
+//
+//        }
+//        return results;
+//
+//    }
 
 }
