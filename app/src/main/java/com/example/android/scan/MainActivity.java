@@ -9,7 +9,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
 import android.widget.ExpandableListView;
-import android.widget.TextView;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -52,8 +51,8 @@ public class MainActivity extends AppCompatActivity {
     private File profile;
     private String[] possibleHobbies;
 
-    private void readProfile() throws IOException {
-        //mTestView.setText("readProfile");
+    private void readMyProfile() throws IOException {
+        //mTestView.setText("readMyProfile");
         hobbies = new ArrayList<>();
         FileInputStream is;
         BufferedReader reader;
@@ -121,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (profile.exists()) {
             try {
-                readProfile();
+                readMyProfile();
             } catch (IOException e){
                 Log.d("ERR", "IOEXc");
             }
