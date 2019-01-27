@@ -257,7 +257,7 @@ public class MainActivity extends AppCompatActivity {
         listDataChild = new HashMap<String, List<String>>();
 
         addDude("Konstantinos",
-                Arrays.asList("Tea bag collecting", "Cross-stitch", "Dance", "Metalworking", "Lapidary"));
+                Arrays.asList("Tea bag collecting", "Cross-stitch", "Dance", "Metalworking", "Lapidary", "BMX"));
 
     }
 
